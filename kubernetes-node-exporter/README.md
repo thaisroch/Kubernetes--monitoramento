@@ -1,12 +1,14 @@
-## Kubernetes node exporter
+## Kubernetes node exporter setup
 
-1 -
+
+1 - Aplicando o service para configurar as informações de conexão do pod
+
+$ kubectl apply -f node-service.yaml
+
+1 - Criando os pods/deamonset de exporter do node.
 
 $ kubectl apply -f node-deamonset.yaml
 
-2 -
-
-$ kubectl apply -f node-service.yaml
 
 
 
