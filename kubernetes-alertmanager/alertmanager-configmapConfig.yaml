@@ -1,0 +1,36 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: alertmanager-config
+  namespace: monitoring
+data:
+  config.yml: |-
+    global:
+      smtp_smarthost: 'localhost:25'
+      smtp_from:  ADD_AQUI_EMAIL
+
+    templates:
+      - '/etc/alertmanager-templates/*.tmpl'
+
+    route:
+      group_by: ['OK','ATENCAO', 'CRITICO']
+      group_wait: 30s
+      group_interval: 30m
+      repeat_interval: 1h
+      receiver: 'email'
+
+    receivers:
+    - name: 'email'
+      email_configs:
+      - to: ADD_AQUI_EMAIL
+        from: ADD_AQUI_EMAIL
+        smarthost: smtp.gmail.com:587
+        auth_username: ADD_AQUI_EMAIL
+        auth_identity: ADD_AQUI_EMAIL
+        auth_password: 'ADD_AQUI_SENHA_APP'
+    inhibit_rules:
+      - source_match:
+          severity: 'ATENCAO'
+        target_match:
+          severity: 'ATENCAO'
+        equal: ['alertname', 'dev', 'instance']

@@ -1,0 +1,23 @@
+#
+# group_by: ['ok','atencao', 'gravissimo']
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: prometheus-server-conf-rules
+  labels:
+    name: prometheus-server-conf-rules
+  namespace: monitoring
+data:
+  prometheus.rules: |-
+    groups:
+      - name:  Low container memory usage
+        rules:
+        - alert: High Pod Memory
+          expr: sum(container_memory_usage_bytes) < 1
+          for: 1m
+          labels:
+            severity: ATENCAO
+          annotations:
+            summary: High Memory Usage
+      

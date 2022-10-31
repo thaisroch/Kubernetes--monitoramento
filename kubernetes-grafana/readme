@@ -1,0 +1,34 @@
+
+## ☸️ kubernetes grafana Setup
+
+1 - Aplicando o service do grafana para obter acesso ao pod.
+
+$ kubectl apply -f grafana-service
+
+Verificar o service e as informações de ip e as portas do grafana
+
+$ kubectl get svc -n monitoring
+
+2- Aplicando um persistentVolume para o grafana
+
+$ kubectl apply -f grafana-pv.yaml
+
+3 - Aplicando o pod do micro serviço do grafana
+
+$ kubectl apply -f grafana-deployment.yaml
+
+Verficiar com o comando
+
+$ kubectl get pods -n monitoring
+
+$ kubectl get deploy -n monitoring
+
+É possivel fazer acesso a ferramenta pelo browser.
+
+$ kubectl get nodes -o wide
+
+http://CLUSTER-IP:POTA-EXTERNA-POD
+
+Projeto de apoio.
+
+[Documentação oficial  grafana](https://grafana.com/docs/grafana/latest/setup-grafana/installation/kubernetes/)
